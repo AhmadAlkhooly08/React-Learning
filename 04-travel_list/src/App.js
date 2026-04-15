@@ -1,19 +1,22 @@
 import { useState } from "react";
 
-const initialItems = [
-  { id: 1, description: "Passports", quantity: 2, packed: false },
-  { id: 2, description: "Socks", quantity: 12, packed: false },
-  { id: 3, description: "charger", quantity: 1, packed: true },
-];
-
 export default function App() {
-  const [updateData,setUpdate] = useState(initialItems);
+  const [updateData,setUpdate] = useState([]);
+  function addData(item){
+    setUpdate((items)=> [...items,item])
+  }
+  function handleDelete(key){
+    setUpdate((item)=> item.filter(e=> e.id !== key))
+  }
+  function handlePacked(key){
+    setUpdate((item)=> item.map(e=> e.id === key ? {...e,packed:!e.packed} : e))
+  }
   return (
     <div className="app">
       <Logo />
-      <Form update={setUpdate}/>
-      <PackingList item={updateData}/>
-      <Stats />
+      <Form update={addData}/>
+      <PackingList item={updateData} handleDelete={handleDelete} onCheck={handlePacked}/>
+      <Stats item={updateData}/>
     </div>
   );
 }
@@ -26,12 +29,13 @@ function Form({update}) {
   const [description,setDescription] = useState('');
   const [quantity,setNum] = useState(1);
   const [data,setData] = useState();
+
   function handleSubmit(e){
     e.preventDefault();
     if(!description) return;
-    initialItems.push({id:initialItems.length +1,quantity,description,packed:false});
-    console.log(initialItems)
-    update(initialItems)
+
+    const newData = {id:Math.trunc(Date.now() + Math.random()),quantity,description,packed:false};
+    update(newData)
 
     setDescription('')
     setNum(1)
@@ -48,33 +52,52 @@ function Form({update}) {
     </form>
   );
 }
-function PackingList({item}) {
+function PackingList({item,handleDelete,onCheck}) {
+  const [sort,setSort] = useState('input');
+  let sortArray;
+
+  if(sort === 'input') sortArray = item;
+  if(sort === 'description') sortArray = item.slice().sort((a,b)=> a.description.localeCompare(b.description))
+  if(sort === 'packed') sortArray = item.slice().sort((a,b)=> +a.packed - +b.packed)
   return(  
   <div className="list">
     <ul>
-      {item.map((e) => (
-        <Item data={e} key={e.id}/>
+      {sortArray.map((e) => (
+        <Item data={e} key={e.id} handleDelete={handleDelete} onCheck={onCheck}/>
       ))}
     </ul>
+
+    <div className="actions">
+      <select value={sort} onChange={(e)=> setSort(e.target.value)}>
+        <option value={'input'}>Sort by input order</option>
+        <option value={'description'}>Sort by description</option>
+        <option value={'packed'}>Sort by packed status</option>
+      </select>
+      <button>clear list items</button>
+    </div>
   </div>
 )}
-function Item({ data }) {
-  const [check,setCheck] = useState(data.packed);
-  const checkTrue = ()=> setCheck(data.packed = !check);
+function Item({ data,handleDelete,onCheck}) {
   return (
     <li>
-      <input type="checkbox" checked={check} onChange={checkTrue}></input>
+      <input type="checkbox" checked={data.packed} onChange={()=>onCheck(data.id)}></input>
       <span style={data.packed ? {textDecoration: 'line-through'} : {}}>
         {data.quantity} {data.description}
       </span>
-      <button>❌</button>
+      <button onClick={(e)=>handleDelete(data.id)}>❌</button>
     </li>
   );
 }
-function Stats() {
+function Stats({item}) {
+    if(!item.length) return <p className="stats">
+      <em>Start adding items to your list 🚀</em>
+    </p>;
+  const allItems = item.length;
+  const packedItems = item.filter(e=> e.packed).length;
+  const percentage = Math.round((packedItems / allItems) * 100)
   return (
     <footer className="stats">
-      <em>🧳 you have x items on your list, and you already packaged x(x%)</em>
+      {percentage !== 100 ? <em>🧳 you have {allItems} items on your list, and you already packaged {packedItems}({percentage}%)</em> : <em>You got everything! Ready to go ✈️</em>}
     </footer>
   );
 }
