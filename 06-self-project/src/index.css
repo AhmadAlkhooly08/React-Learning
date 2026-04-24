@@ -1,0 +1,81 @@
+.app{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.question-section{
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 30px;
+}
+.question-box{
+  width: 96%;
+  box-shadow:
+  0 1px 2px rgba(0, 0, 0, 0.05),
+  0 8px 24px rgba(0, 0, 0, 0.08);
+  border: 2px solid #5685FF;
+  border-radius: 5px;
+  padding: 17px;
+  margin-bottom: 20px;
+}
+.question-box p{
+  padding: 20px;
+}
+.choice-box,.explanation-box{
+  width: 100%;
+  background-color: white;
+  box-shadow:
+  0 1px 2px rgba(0, 0, 0, 0.05),
+  0 8px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  margin: 7px;
+
+}
+.explanation-box{
+  padding: 10px;
+}
+.choice-box p{
+  padding-left: 11px;
+  font-size: 19px;
+}
+.choice-box:hover,.btns button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+.choice-box.selected {
+  border-color: #2563eb;
+  background: #eff6ff;
+  box-shadow: 0 7btnspx 7px rgba(37, 99, 235, 0.2);
+}
+.btns{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+.btns button{
+  width: 10%;
+  border: none;
+  box-shadow: none;
+  background-color: white;
+  box-shadow:
+  0 1px 2px rgba(0, 0, 0, 0.05),
+  0 8px 24px rgba(0, 0, 0, 0.08);
+  padding: 8px;
+  margin: 35px;
+  font-size: 18px;
+  border-radius: 7px;
+}
+
+.number-section{
+  width: 30%;
+
+}
