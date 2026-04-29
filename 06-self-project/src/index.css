@@ -1,12 +1,14 @@
 .app{
   width: 100%;
+  height: 60%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  /* align-items: center; */
+  justify-content: space-around;
+  padding: 20px;
 }
 
 .question-section{
-  width: 70%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -54,6 +56,16 @@
   background: #eff6ff;
   box-shadow: 0 7btnspx 7px rgba(37, 99, 235, 0.2);
 }
+.choice-box.wrong {
+  border-color: #ff3103;
+  background: #eff6ff;
+  box-shadow: 0 7btnspx 7px rgba(37, 99, 235, 0.2);
+}
+.choice-box.right {
+  border-color: #08cf29;
+  background: #eff6ff;
+  box-shadow: 0 7btnspx 7px rgba(37, 99, 235, 0.2);
+}
 .btns{
   width: 100%;
   display: flex;
@@ -76,6 +88,38 @@
 }
 
 .number-section{
-  width: 30%;
-
+  width: 35%;
+  /* height: 122vh; */
+  background-color: white;
+  box-shadow:
+  0 1px 2px rgba(0, 0, 0, 0.05),
+  0 8px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+}
+.numbers{
+  width: 90%;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  padding: 20px;
+}
+.numbers li{
+  width: 40px;
+  height: 40px;
+  list-style-type: none;
+  background-color: #c4c4c4;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+  margin: 10px;
+}
+.numbers li.active{
+  background-color: #FFAAAF;
+}
+.numbers li.finished{
+  background-color: #AABDFF;
 }
