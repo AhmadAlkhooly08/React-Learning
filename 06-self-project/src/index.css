@@ -56,15 +56,11 @@
   background: #eff6ff;
   box-shadow: 0 7btnspx 7px rgba(37, 99, 235, 0.2);
 }
-.choice-box.wrong {
-  border-color: #ff3103;
-  background: #eff6ff;
-  box-shadow: 0 7btnspx 7px rgba(37, 99, 235, 0.2);
+.choice-box.wrong{
+  background-color: #ff3103;
 }
 .choice-box.right {
-  border-color: #08cf29;
-  background: #eff6ff;
-  box-shadow: 0 7btnspx 7px rgba(37, 99, 235, 0.2);
+  background: #08cf29;
 }
 .btns{
   width: 100%;
@@ -122,4 +118,10 @@
 }
 .numbers li.finished{
   background-color: #AABDFF;
+}
+.numbers li.wrong{
+    background-color: #ff3103;
+}
+.numbers li.right{
+    background-color: #08cf29;
 }
