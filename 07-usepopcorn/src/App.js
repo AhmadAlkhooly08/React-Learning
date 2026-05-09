@@ -55,13 +55,13 @@ export default function App() {
 
   return (
     <>
-      <NavBar movies={movies} />
-      <Main movies={movies} />
+      <NavBar><NumResaults movies={movies} /></NavBar>
+      <Main><FirstBox movies={movies}><FirstBoxList movies={movies} /></FirstBox></Main>
     </>
   );
 }
 
-function NavBar({ movies }) {
+function NavBar({ children }) {
   return (
     <nav className="nav-bar">
       <div className="logo">
@@ -69,7 +69,7 @@ function NavBar({ movies }) {
         <h1>usePopcorn</h1>
       </div>
       <Search />
-      <NumResaults movies={movies} />
+      {children}
     </nav>
   );
 }
@@ -92,16 +92,16 @@ function NumResaults({ movies }) {
     </p>
   );
 }
-function Main({ movies }) {
+function Main({ children }) {
   return (
     <main className="main">
-      <FirstBox movies={movies} />
+      {children}
       <SecondBox />
     </main>
   );
 }
 
-function FirstBox({ movies }) {
+function FirstBox({ movies ,children}) {
   const [isOpen1, setIsOpen1] = useState(true);
 
   return (
@@ -109,7 +109,7 @@ function FirstBox({ movies }) {
       <button className="btn-toggle" onClick={() => setIsOpen1((a) => !a)}>
         {isOpen1 ? "–" : "+"}
       </button>
-      {isOpen1 && <FirstBoxList movies={movies} />}
+      {isOpen1 && children}
     </div>
   );
 }
